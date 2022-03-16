@@ -1,0 +1,86 @@
+<mat-toolbar class="toolbar" style="background-color: #242527!important;">
+    <mat-toolbar-row>
+        <div class="headericos">
+            <span>myicon</span>
+            <span>Blog</span>
+        </div>
+
+        <div fxFlex fxLayout="row">
+            <ul fxLayout="row" fxLayoutGap="10px">
+                <li>
+                    <a class="deletelink" href="" (click)="this.deleteAll()">Delete all</a>
+                </li>
+                <li>
+                    <mat-slide-toggle [(ngModel)]='isLongEnabled' (change)="this.toggleChange($event)">Long Stories</mat-slide-toggle>
+                    <button class="favbtn" mat-mini-fab disabled aria-label="count">{{this.long_blogs.length}}</button>
+                </li>
+
+                <li>
+                    <mat-slide-toggle [(ngModel)]='isShortEnabled' (change)="this.toggleChange($event)">Short Stories</mat-slide-toggle>
+                    <button class="favbtn" mat-mini-fab disabled aria-label="count">{{this.short_blogs.length}}</button>
+                </li>
+            </ul>
+        </div>
+
+
+
+    </mat-toolbar-row>
+</mat-toolbar>
+
+
+<!-- blogs -->
+<div class="container">
+    <div class="recent_blog">
+        <h4><b>Recent</b></h4>
+        <div class="blog_container">
+            <mat-card class="blog_card" style="background-color: #242527!important;" *ngFor="let blog of this.recent_blogs">
+                <div style="display: flex;">
+                    <div>
+                        <mat-card-subtitle *ngIf="blog.title!=null">{{blog.title}}</mat-card-subtitle>
+                        <mat-card-content *ngIf="blog.image!=null">
+                            {{blog.body.toString() | slice:0:100}}...
+                        </mat-card-content>
+
+                        <mat-card-content *ngIf="blog.image==null">
+                            {{blog.body.toString() | slice:0:200}}...
+                        </mat-card-content>
+
+                        <div>{{blog.datetime.toString() | date:'MMM d,y | h:mm a'}}</div>
+                    </div>
+                    <div style="width: 35%;" *ngIf="blog.image!=null">
+                        <img class="imgSrc" [src]="blog.image">
+                    </div>
+
+                </div>
+
+            </mat-card>
+
+        </div>
+    </div>
+    <div class="old_blog">
+        <h4><b>Old</b></h4>
+        <div class="blog_container">
+            <mat-card class="blog_card" *ngFor="let blog of this.old_blogs" style="background-color: #242527!important;">
+                <div style="display: flex;">
+                    <div>
+                        <mat-card-subtitle *ngIf="blog.title!=null">{{blog.title}}</mat-card-subtitle>
+                        <mat-card-content *ngIf="blog.image!=null">
+                            {{blog.body.toString().trim() | slice:0:100}}...
+                        </mat-card-content>
+
+                        <mat-card-content *ngIf="blog.image==null">
+                            {{blog.body.toString() | slice:0:200}}...
+                        </mat-card-content>
+
+                        <div>{{blog.datetime.toString() | date:'MMM d,y | h:mm a'}}</div>
+                    </div>
+                    <div style="width: 35%;" *ngIf="blog.image!=null">
+                        <img class="imgSrc" [src]="blog.image">
+                    </div>
+
+                </div>
+            </mat-card>
+        </div>
+
+    </div>
+</div>
